@@ -4,18 +4,22 @@
 
 #segundo punto
 
+$bandera = 0
+
 seleccionar (){
     PS3="Usted esta en la sección $1, seleccione la opción que desea utilizar: "
-    select opt in agregar buscar eliminar leer; do
+    select opt in agregar buscar eliminar leer salir; do
     case $opt in
         agregar)
             read -p "Escribe el concepto nuevo: " nuevo_nombre
             read -p "Escribe su definición (sin saltos de linea): " nueva_definicion
             echo "[$nuevo_nombre] $nueva_definicion" >> "$1.inf"
+
         ;;
         buscar) 
             read -p "Inserte el concepto a buscar: " concepto
             grep "$concepto" "$1.inf"
+            
         ;;
         eliminar)
             read -p "Escriba el concepto a eliminar: " concepto
@@ -28,11 +32,17 @@ seleccionar (){
 !
             #final 
             echo "eliminado"
+            reinicio bandera
+            if [ $bandera -eq 0 ]
+            then
+                break
+            fi
             ;;
         leer)
             cat "$1.inf"
+            
             ;;
-        quit)
+        salir)
             break;;
         *) 
             echo "Invalid option $REPLY";;
@@ -41,15 +51,16 @@ seleccionar (){
 }
 
 reinicio(){
+    
     PS3="Quieres regresar al menu anterior o terminar la ejecucion?: "
     select opt in regresar terminar; do
     case $opt in
         regresar)
-            read -p "Escribe el concepto nuevo: " nuevo_nombre
-            read -p "Escribe su definición (sin saltos de linea): " nueva_definicion
-            echo "[$nuevo_nombre] $nueva_definicion" >> "$1.inf"
+            return 1
+            break;
         ;;
         terminar)
+            return 0
             break;;
         *) 
             echo "Invalid option $REPLY";;
