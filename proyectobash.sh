@@ -48,10 +48,12 @@ seleccionar(){
         ;;
         eliminar)
             read -p "Escriba el concepto a eliminar: " concepto
-            n_linea=$(grep -n -m 1 is $1.inf |sed  's/\([0-9]*\).*/\1/')
-            
+            n_linea=$(grep -n -m 1 [$concepto] $1.inf |sed  's/\([0-9]*\).*/\1/')
+            echo "numero de linea: $n_linea"
+            echo "\$1: $1"
+
             #código de eliminado:
-            ed -s hibro.inf <<!
+            ed -s $1.inf <<!
             $n_linea d
             w
 !
