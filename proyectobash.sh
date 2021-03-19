@@ -4,22 +4,47 @@
 
 #segundo punto
 
-$bandera = 0
+#$bandera = 0
 
-seleccionar (){
+
+parametro=$1
+
+reinicio(){
+    
+    PS3="¿Regresar al menu anterior o terminar la ejecucion?: "
+    	echo 1. Regresar al menú anterior
+    	echo 2. Terminar ejecucion
+    	read -p "Seleccione una opcion: " regresono
+	if [ $regresono -eq 1 ] && [ $parametro = "-t" ]; then
+		seleccionarB $n	
+	elif [ $regresono -eq 1 ] && [ $parametro = "-a" ]; then
+		seleccionarA $n
+	else
+		exit
+	fi	
+}
+
+seleccionar(){
     PS3="Usted esta en la sección $1, seleccione la opción que desea utilizar: "
-    select opt in agregar buscar eliminar leer salir; do
+    select opt in agregar buscar eliminar leer ; do
     case $opt in
         agregar)
             read -p "Escribe el concepto nuevo: " nuevo_nombre
             read -p "Escribe su definición (sin saltos de linea): " nueva_definicion
             echo "[$nuevo_nombre] $nueva_definicion" >> "$1.inf"
-
+	    echo "Agregado"
+	    reinicio
         ;;
         buscar) 
             read -p "Inserte el concepto a buscar: " concepto
-            grep "$concepto" "$1.inf"
-            
+            if [ `grep "$concepto" -c "$1.inf"` -ge 1 ]; then
+	    	echo "Encontrado"
+		grep $concepto "$1.inf"
+	    else   
+            	echo "No encontrado"
+		
+	    fi
+	    reinicio
         ;;
         eliminar)
             read -p "Escriba el concepto a eliminar: " concepto
@@ -32,41 +57,18 @@ seleccionar (){
 !
             #final 
             echo "eliminado"
-            reinicio bandera
-            if [ $bandera -eq 0 ]
-            then
-                break
-            fi
+            reinicio 
             ;;
         leer)
             cat "$1.inf"
-            
+            reinicio
             ;;
-        salir)
-            break;;
         *) 
             echo "Invalid option $REPLY";;
     esac
     done
 }
 
-reinicio(){
-    
-    PS3="Quieres regresar al menu anterior o terminar la ejecucion?: "
-    select opt in regresar terminar; do
-    case $opt in
-        regresar)
-            return 1
-            break;
-        ;;
-        terminar)
-            return 0
-            break;;
-        *) 
-            echo "Invalid option $REPLY";;
-    esac
-    done
-}
 
 seleccionarA(){
     case $1 in
@@ -97,7 +99,7 @@ seleccionarB(){
 }
 
 #primer punto
-
+menu(){
 case $1 in
         -a)
         echo "Bienvenido a la guia rápida de Agile, para continuar seleccione un tema:"
@@ -121,4 +123,8 @@ case $1 in
         echo "Los parametros validos son: <-t> Agile, <-a> Metodologías tradicionales"
                 ;;
 esac
+
+}
+
+menu $parametro
 
