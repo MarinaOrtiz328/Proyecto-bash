@@ -10,7 +10,6 @@
 parametro=$1
 
 reinicio(){
-    
     	echo -e "\n¿Regresar al menu anterior o terminar la ejecucion?: "
     	echo 1. Regresar al menú anterior
     	echo 2. Terminar ejecucion
@@ -26,8 +25,8 @@ reinicio(){
 
 seleccionar(){
     echo "Usted esta en la sección $1, seleccione la opción que desea utilizar: "
-   PS3="Ingrese opcion: " 
-   select opt in agregar buscar eliminar leer_base_de_informacion ; do
+    PS3="Ingrese opcion: " 
+    select opt in agregar buscar eliminar leer_base_de_informacion ; do
     case $opt in
         agregar)
             read -p "Escribe el concepto nuevo: " nuevo_nombre
@@ -50,7 +49,7 @@ seleccionar(){
         eliminar)
             read -p "Escriba el concepto a eliminar: " concepto
            
-	   if [ `grep "$concepto" -c "$1.inf"` -ge 1 ]; then
+	    if [ `grep "$concepto" -c "$1.inf"` -ge 1 ]; then
 	    	n_linea=$(grep -n -m 1 $concepto $1.inf |sed  's/\([0-9]*\).*/\1/')
             
 
@@ -61,22 +60,20 @@ seleccionar(){
 !
             	#final 
             	echo "eliminado"
-	   else
-		echo "Error al eliminar <Concepto no encontrado>."
-	   fi
+	    else
+		    echo "Error al eliminar <Concepto no encontrado>."
+	    fi
             reinicio 
             ;;
 
         leer_base_de_informacion)
           
-	   if [ -s "$1.inf" ]; then
-	 
-		   cat "$1.inf"
-	   else
-	
-        	   echo -e "\nBase de informacion vacia"
-	   fi
-	   reinicio
+	    if [ -s "$1.inf" ]; then
+	        cat "$1.inf"
+	    else
+            echo -e "\nBase de informacion vacia"
+	    fi
+	    reinicio
             ;;
         *) 
             echo "Invalid option $REPLY";;
