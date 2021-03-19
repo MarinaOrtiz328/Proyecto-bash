@@ -33,6 +33,6 @@ Bienvenido a la guía rápida de metodologías tradicionales, para continuar sel
 
 ## Integrantes
 
-* **Daniel Flotte Corral** - *Matrícula: 315120*
+* **Daniel Flotte Corral** - *Matrícula: 329842*
 * **Ana Marina Ortiz Ruiz** - *Matrícula: 329577*
 * **Daniel López Villalobos** - *Matrícula: 315120*
