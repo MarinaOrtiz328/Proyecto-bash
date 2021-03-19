@@ -48,7 +48,7 @@ seleccionar(){
         ;;
         eliminar)
             read -p "Escriba el concepto a eliminar: " concepto
-            n_linea=$(grep -n -m 1 [$concepto] $1.inf |sed  's/\([0-9]*\).*/\1/')
+            n_linea=$(grep -n -m 1 $concepto $1.inf |sed  's/\([0-9]*\).*/\1/')
             echo "numero de linea: $n_linea"
             echo "\$1: $1"
 
