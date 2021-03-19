@@ -1,12 +1,5 @@
 #!/bin/bash
 
-
-
-#segundo punto
-
-#$bandera = 0
-
-
 parametro=$1
 
 reinicio(){
