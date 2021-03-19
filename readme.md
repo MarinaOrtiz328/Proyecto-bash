@@ -14,10 +14,10 @@ Para ejecutar el script no basta con solo abrir el archivo en la terminal, tambi
 
 Bienvenido a la guía rápida de Agile, para continuar seleccione un tema:
 
-* 1. SCRUM
-* 2. X.P
-* 3. Kanaban
-* 4. Crystal
+* 1 SCRUM
+* 2 X.P
+* 3 Kanaban
+* 4 Crystal
 
 ### Opcion -t
 
@@ -27,9 +27,9 @@ Bienvenido a la guía rápida de Agile, para continuar seleccione un tema:
 
 Bienvenido a la guía rápida de metodologías tradicionales, para continuar seleccione un tema:
 
-* 1. Cascada
-* 2. Espiral
-* 3. Modelo 
+* 1 Cascada
+* 2 Espiral
+* 3 Modelo 
 
 ## Integrantes
 
