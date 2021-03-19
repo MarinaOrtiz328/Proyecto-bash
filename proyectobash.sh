@@ -11,7 +11,7 @@ parametro=$1
 
 reinicio(){
     
-    PS3="¿Regresar al menu anterior o terminar la ejecucion?: "
+    	echo -e "\n¿Regresar al menu anterior o terminar la ejecucion?: "
     	echo 1. Regresar al menú anterior
     	echo 2. Terminar ejecucion
     	read -p "Seleccione una opcion: " regresono
@@ -25,8 +25,9 @@ reinicio(){
 }
 
 seleccionar(){
-    PS3="Usted esta en la sección $1, seleccione la opción que desea utilizar: "
-    select opt in agregar buscar eliminar leer_base_de_informacion ; do
+    echo "Usted esta en la sección $1, seleccione la opción que desea utilizar: "
+   PS3="Ingrese opcion: " 
+   select opt in agregar buscar eliminar leer_base_de_informacion ; do
     case $opt in
         agregar)
             read -p "Escribe el concepto nuevo: " nuevo_nombre
@@ -48,22 +49,34 @@ seleccionar(){
         ;;
         eliminar)
             read -p "Escriba el concepto a eliminar: " concepto
-            n_linea=$(grep -n -m 1 $concepto $1.inf |sed  's/\([0-9]*\).*/\1/')
-            echo "numero de linea: $n_linea"
-            echo "\$1: $1"
+           
+	   if [ `grep "$concepto" -c "$1.inf"` -ge 1 ]; then
+	    	n_linea=$(grep -n -m 1 $concepto $1.inf |sed  's/\([0-9]*\).*/\1/')
+            
 
-            #código de eliminado:
-            ed -s $1.inf <<!
-            $n_linea d
-            w
+            	#código de eliminado:
+            	ed -s $1.inf <<!
+            	$n_linea d
+            	w
 !
-            #final 
-            echo "eliminado"
+            	#final 
+            	echo "eliminado"
+	   else
+		echo "Error al eliminar <Concepto no encontrado>."
+	   fi
             reinicio 
             ;;
+
         leer_base_de_informacion)
-            cat "$1.inf"
-            reinicio
+          
+	   if [ -s "$1.inf" ]; then
+	 
+		   cat "$1.inf"
+	   else
+	
+        	   echo -e "\nBase de informacion vacia"
+	   fi
+	   reinicio
             ;;
         *) 
             echo "Invalid option $REPLY";;
@@ -118,7 +131,7 @@ case $1 in
         echo "2. Espiral"
         echo "3. Modelo V"
         read -p "Selecciona una opcion: " n
-        seleccionarB $n
+	seleccionarB $n
                 ;;
         *)
         echo "Parametro no valido, vuelva a ejecutar"
