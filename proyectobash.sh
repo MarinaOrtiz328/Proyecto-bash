@@ -26,7 +26,7 @@ reinicio(){
 
 seleccionar(){
     PS3="Usted esta en la sección $1, seleccione la opción que desea utilizar: "
-    select opt in agregar buscar eliminar leer ; do
+    select opt in agregar buscar eliminar leer_base_de_informacion ; do
     case $opt in
         agregar)
             read -p "Escribe el concepto nuevo: " nuevo_nombre
@@ -59,7 +59,7 @@ seleccionar(){
             echo "eliminado"
             reinicio 
             ;;
-        leer)
+        leer_base_de_informacion)
             cat "$1.inf"
             reinicio
             ;;
